@@ -27,12 +27,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade ca-certificates  --yes
 RUN apt-get install -y --no-install-recommends default-jre apt-transport-https
 RUN apt-get install -y --no-install-recommends mono-complete
 RUN apt-get install -y --no-install-recommends dotnet-sdk-8.0 aspnetcore-runtime-8.0
-RUN apt-get -t testing install -y --no-install-recommends python3 python3-distutils python3-apt python3-pip
-RUN apt-get install -y aspnetcore-runtime-2.1
-RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-RUN python3 get-pip.py
+RUN apt-get -t testing install -y --no-install-recommends python3 python3-apt python3-pip
+RUN apt-get update && apt-get install -y python3-pip
 RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 RUN apt-get autoremove -y
-RUN dotnet tool install dotnet-sonarscanner --tool-path . --version 5.7.1
+RUN dotnet tool install dotnet-sonarscanner --tool-path . --version 9.0.2
 
 ADD entrypoint.sh /entrypoint.sh
